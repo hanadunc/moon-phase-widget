@@ -23,7 +23,7 @@
 
         .widget-card {
             width: 340px;
-            padding: 34px 28px 20px 28px;
+            padding: 34px 28px 24px 28px;
             border-radius: 28px;
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(24px);
@@ -33,22 +33,7 @@
                         inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
             text-align: center;
             position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .widget-card::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(252, 238, 203, 0.12) 0%, transparent 70%);
-            z-index: -1;
-            filter: blur(20px);
-            border-radius: 28px;
+            transition: all 0.3s ease;
         }
 
         .widget-title {
@@ -123,7 +108,7 @@
             display: inline-block;
         }
 
-        /* Expandable Shortcuts Section */
+        /* Shortcuts Toggle Button */
         .drawer-toggle {
             margin-top: 22px;
             padding-top: 14px;
@@ -142,17 +127,12 @@
         }
 
         .shortcuts-container {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
-            margin-top: 0;
+            display: none;
+            margin-top: 14px;
         }
 
         .shortcuts-container.open {
-            max-height: 240px;
-            opacity: 1;
-            margin-top: 14px;
+            display: block;
         }
 
         .shortcut-list {
@@ -160,7 +140,6 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            padding-bottom: 8px;
         }
 
         .shortcut-item {
@@ -180,7 +159,6 @@
         .shortcut-item:hover {
             background: rgba(252, 238, 203, 0.15);
             border-color: rgba(252, 238, 203, 0.3);
-            transform: translateY(-1px);
         }
 
         .shortcut-icon {
@@ -216,13 +194,4 @@
         <div class="shortcuts-container" id="shortcuts-drawer">
             <ul class="shortcut-list">
                 <li><a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="shortcut-item"><span>📧 Gmail Inbox</span><span class="shortcut-icon">↗</span></a></li>
-                <li><a href="https://app.clickup.com/9011642634/v/l/li/901113023209?pr=90113938743" target="_blank" class="shortcut-item"><span>✅ ClickUp Tasks</span><span class="shortcut-icon">↗</span></a></li>
-                <li><a href="https://docs.google.com/spreadsheets/u/0/?tgif=d" target="_blank" class="shortcut-item"><span>📊 Google Sheets</span><span class="shortcut-icon">↗</span></a></li>
-            </ul>
-        </div>
-    </div>
-
-    <script>
-        async function fetchLiveMoonData() {
-            try {
-                const unixTime =
+                <li><a href="
