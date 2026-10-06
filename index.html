@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reading the Stars</title>
-    <!-- Google Fonts: Cormorant Garamond & Quicksand -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
@@ -17,87 +16,107 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Soft dreamy cosmic gradient */
-            background: radial-gradient(circle at center, #1b1937 0%, #0d0c1d 100%);
+            background: radial-gradient(circle at center, #1e1b3a 0%, #0c0b18 100%);
             font-family: 'Quicksand', sans-serif;
             color: #f3f0e6;
         }
 
-        /* Luminous Frosted Glass Card */
         .widget-card {
-            width: 330px;
-            padding: 32px 26px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(243, 224, 185, 0.25);
-            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45),
-                        inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+            width: 340px;
+            padding: 34px 28px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(252, 238, 203, 0.2);
+            box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.5),
+                        inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
             text-align: center;
             position: relative;
         }
 
+        /* Ambient Glow Effect */
+        .widget-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(252, 238, 203, 0.12) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(20px);
+            border-radius: 28px;
+        }
+
         .widget-title {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
+            font-size: 1.9rem;
             font-weight: 400;
-            letter-spacing: 2px;
-            margin-bottom: 6px;
+            letter-spacing: 2.5px;
+            margin-bottom: 4px;
             color: #fceecb;
-            text-shadow: 0 2px 10px rgba(252, 238, 203, 0.3);
+            text-shadow: 0 0 12px rgba(252, 238, 203, 0.35);
         }
 
         .widget-subtitle {
-            font-size: 0.75rem;
-            letter-spacing: 2.5px;
+            font-size: 0.72rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            color: rgba(243, 240, 230, 0.6);
-            margin-bottom: 18px;
+            color: rgba(243, 240, 230, 0.5);
+            margin-bottom: 22px;
         }
 
-        /* Cute Illustration Container */
         .illustration-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 16px 0;
-            position: relative;
+            margin: 18px 0 22px 0;
         }
 
         .sparkle {
             font-size: 1.1rem;
             color: #fceecb;
-            animation: pulse 2.5s infinite ease-in-out;
+            opacity: 0.85;
+            animation: pulse 3s infinite ease-in-out;
         }
 
         @keyframes pulse {
-            0%, 100% { opacity: 0.4; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); }
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.15); }
         }
 
         .moon-graphic {
-            width: 76px;
-            height: 76px;
-            margin: 0 12px;
-            filter: drop-shadow(0 0 12px rgba(252, 238, 203, 0.4));
+            width: 80px;
+            height: 80px;
+            margin: 0 16px;
+            filter: drop-shadow(0 0 16px rgba(252, 238, 203, 0.45));
         }
 
         .moon-info {
-            margin-top: 14px;
-            font-size: 0.95rem;
-            line-height: 1.7;
+            margin-top: 10px;
+            font-size: 0.98rem;
+            line-height: 1.8;
             color: rgba(243, 240, 230, 0.85);
         }
 
         .label {
             font-size: 0.85rem;
-            color: rgba(243, 240, 230, 0.6);
+            color: rgba(243, 240, 230, 0.5);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .highlight {
             color: #fceecb;
             font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .symbol {
+            color: #fceecb;
+            margin-left: 4px;
         }
     </style>
 </head>
@@ -107,19 +126,19 @@
         <p class="widget-subtitle">✦ Lunar Ephemeris ✦</p>
 
         <div class="illustration-container">
-            <span class="sparkle">✨</span>
-            <!-- Cute Stylized Moon Illustration -->
+            <span class="sparkle">✦</span>
             <svg class="moon-graphic" viewBox="0 0 100 100">
-                <circle cx="50" cy="50" r="42" fill="#1b1937" stroke="#fceecb" stroke-width="2" />
-                <!-- Crescent / Phase Shadow Overlay -->
-                <path d="M 50 8 A 42 42 0 0 1 50 92 A 28 42 0 0 0 50 8 Z" fill="#fceecb" />
+                <!-- Base Moon Sphere -->
+                <circle cx="50" cy="50" r="42" fill="#151328" stroke="#fceecb" stroke-width="1.5" />
+                <!-- Illuminated Crescent (Last Quarter / Waning) -->
+                <path d="M 50 8 A 42 42 0 0 1 50 92 A 12 42 0 0 1 50 8 Z" fill="#fceecb" />
             </svg>
-            <span class="sparkle">✨</span>
+            <span class="sparkle">✦</span>
         </div>
 
         <div class="moon-info">
             <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
-            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo ♌</span></p>
+            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span><span class="symbol">♌</span></p>
         </div>
     </div>
 
@@ -147,13 +166,12 @@
             if (zodiacProgress < 0) zodiacProgress += 1;
             
             let signIndex = Math.floor((4 + (zodiacProgress * 12)) % 12);
-            const zodiacSigns = [
-                "Aries ♈", "Taurus ♉", "Gemini ♊", "Cancer ♋",
-                "Leo ♌", "Virgo ♍", "Libra ♎", "Scorpio ♏",
-                "Sagittarius ♐", "Capricorn ♑", "Aquarius ♒", "Pisces ♓"
-            ];
+            const zodiacSigns = ["Aries ♈", "Taurus ♉", "Gemini ♊", "Cancer ♋", "Leo ♌", "Virgo ♍", "Libra ♎", "Scorpio ♏", "Sagittarius ♐", "Capricorn ♑", "Aquarius ♒", "Pisces ♓"];
+            const zodiacNames = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
+            const zodiacSymbols = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
 
-            document.getElementById('moon-sign').innerText = zodiacSigns[signIndex];
+            document.getElementById('moon-sign').innerText = zodiacNames[signIndex];
+            document.querySelector('.symbol').innerText = zodiacSymbols[signIndex];
         }
 
         fetchLiveMoonData();
