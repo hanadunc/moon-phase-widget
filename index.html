@@ -3,62 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moon Calendar Widget</title>
+    <title>Reading the Stars</title>
+    <!-- Google Fonts: Cormorant Garamond & Quicksand -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            /* Soft dreamy cosmic gradient */
+            background: radial-gradient(circle at center, #1b1937 0%, #0d0c1d 100%);
             font-family: 'Quicksand', sans-serif;
-            color: #ffffff;
+            color: #f3f0e6;
         }
+
+        /* Luminous Frosted Glass Card */
         .widget-card {
-            width: 320px;
-            padding: 28px 24px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            width: 330px;
+            padding: 32px 26px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.10);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(243, 224, 185, 0.25);
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45),
+                        inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
             text-align: center;
+            position: relative;
         }
+
         .widget-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            color: #fceecb;
+            text-shadow: 0 2px 10px rgba(252, 238, 203, 0.3);
         }
-        .moon-icon {
-            font-size: 3rem;
-            margin: 8px 0;
+
+        .widget-subtitle {
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(243, 240, 230, 0.6);
+            margin-bottom: 18px;
         }
+
+        /* Cute Illustration Container */
+        .illustration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        .sparkle {
+            font-size: 1.1rem;
+            color: #fceecb;
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .moon-graphic {
+            width: 76px;
+            height: 76px;
+            margin: 0 12px;
+            filter: drop-shadow(0 0 12px rgba(252, 238, 203, 0.4));
+        }
+
         .moon-info {
-            margin-top: 10px;
-            font-size: 1rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.85);
+            margin-top: 14px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(243, 240, 230, 0.85);
         }
+
+        .label {
+            font-size: 0.85rem;
+            color: rgba(243, 240, 230, 0.6);
+        }
+
         .highlight {
-            color: #e2c044;
+            color: #fceecb;
             font-weight: 500;
         }
     </style>
 </head>
 <body>
     <div class="widget-card">
-        <h1 class="widget-title">Lunar Calendar</h1>
-        <div id="moon-emoji" class="moon-icon">🌗</div>
+        <h1 class="widget-title">Reading the Stars</h1>
+        <p class="widget-subtitle">✦ Lunar Ephemeris ✦</p>
+
+        <div class="illustration-container">
+            <span class="sparkle">✨</span>
+            <!-- Cute Stylized Moon Illustration -->
+            <svg class="moon-graphic" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="42" fill="#1b1937" stroke="#fceecb" stroke-width="2" />
+                <!-- Crescent / Phase Shadow Overlay -->
+                <path d="M 50 8 A 42 42 0 0 1 50 92 A 28 42 0 0 0 50 8 Z" fill="#fceecb" />
+            </svg>
+            <span class="sparkle">✨</span>
+        </div>
+
         <div class="moon-info">
-            <p>Phase: <span id="moon-phase" class="highlight">Last Quarter</span></p>
-            <p>Moon in: <span id="moon-sign" class="highlight">Leo ♌</span></p>
+            <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
+            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo ♌</span></p>
         </div>
     </div>
 
@@ -72,23 +133,10 @@
                 if (data && data.length > 0) {
                     const moon = data[0];
                     const phaseName = moon.Phase || "Last Quarter";
-                    let phaseEmoji = "🌗";
-
-                    if (phaseName.includes("New")) phaseEmoji = "🌑";
-                    else if (phaseName.includes("Waxing Crescent")) phaseEmoji = "🌒";
-                    else if (phaseName.includes("1st")) phaseEmoji = "🌓";
-                    else if (phaseName.includes("Waxing Gibbous")) phaseEmoji = "🌔";
-                    else if (phaseName.includes("Full")) phaseEmoji = "🌕";
-                    else if (phaseName.includes("Waning Gibbous")) phaseEmoji = "🌖";
-                    else if (phaseName.includes("3rd") || phaseName.includes("Third") || phaseName.includes("Last")) phaseEmoji = "🌗";
-                    else if (phaseName.includes("Waning Crescent")) phaseEmoji = "🌘";
-
                     document.getElementById('moon-phase').innerText = phaseName;
-                    document.getElementById('moon-emoji').innerText = phaseEmoji;
                 }
             } catch (err) {
                 document.getElementById('moon-phase').innerText = "Last Quarter";
-                document.getElementById('moon-emoji').innerText = "🌗";
             }
 
             const now = new Date();
