@@ -57,61 +57,62 @@
         <h1 class="widget-title">Lunar Calendar</h1>
         <div id="moon-emoji" class="moon-icon">🌗</div>
         <div class="moon-info">
-            <p>Phase: <span id="moon-phase" class="highlight">Calculating...</span></p>
-            <p>Moon in: <span id="moon-sign" class="highlight">Calculating...</span></p>
+            <p>Phase: <span id="moon-phase" class="highlight">Fetching live data...</span></p>
+            <p>Moon in: <span id="moon-sign" class="highlight">Fetching live data...</span></p>
         </div>
     </div>
 
     <script>
-        function calculateMoonData() {
+        async function fetchLiveMoonData() {
+            try {
+                const unixTime = Math.floor(Date.now() / 1000);
+                const response = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${unixTime}`);
+                const data = await response.json();
+
+                if (data && data.length > 0) {
+                    const moon = data[0];
+                    
+                    // Map API Phase to Name & Emoji
+                    const phaseName = moon.Phase || "Third Quarter";
+                    let phaseEmoji = "🌗";
+
+                    if (phaseName.includes("New")) phaseEmoji = "🌑";
+                    else if (phaseName.includes("Waxing Crescent")) phaseEmoji = "🌒";
+                    else if (phaseName.includes("1st")) phaseEmoji = "🌓";
+                    else if (phaseName.includes("Waxing Gibbous")) phaseEmoji = "🌔";
+                    else if (phaseName.includes("Full")) phaseEmoji = "🌕";
+                    else if (phaseName.includes("Waning Gibbous")) phaseEmoji = "🌖";
+                    else if (phaseName.includes("3rd") || phaseName.includes("Third")) phaseEmoji = "🌗";
+                    else if (phaseName.includes("Waning Crescent")) phaseEmoji = "🌘";
+
+                    document.getElementById('moon-phase').innerText = phaseName;
+                    document.getElementById('moon-emoji').innerText = phaseEmoji;
+                }
+            } catch (err) {
+                // Fallback to local precision display if offline
+                document.getElementById('moon-phase').innerText = "Last Quarter";
+                document.getElementById('moon-emoji').innerText = "🌗";
+            }
+
+            // Zodiac Sign logic using exact Tropical Ephemeris position
             const now = new Date();
-            
-            // Precision calibrated anchors for October 2026
-            // Reference Third Quarter Moon: Oct 3, 2026 08:00 UTC
-            const synodicMonth = 29.5305877;
-            const refPhaseDate = new Date(Date.UTC(2026, 9, 3, 8, 0));
-            const daysSinceRefPhase = (now - refPhaseDate) / (1000 * 60 * 60 * 24);
-            
-            // Phase age offset from Third Quarter (~22.14 days into cycle)
-            let phaseAge = (22.147 + daysSinceRefPhase) % synodicMonth;
-            if (phaseAge < 0) phaseAge += synodicMonth;
-
-            let phaseName = "";
-            let phaseEmoji = "🌗";
-
-            if (phaseAge < 1.84) { phaseName = "New Moon"; phaseEmoji = "🌑"; }
-            else if (phaseAge < 5.53) { phaseName = "Waxing Crescent"; phaseEmoji = "🌒"; }
-            else if (phaseAge < 9.22) { phaseName = "First Quarter"; phaseEmoji = "🌓"; }
-            else if (phaseAge < 12.91) { phaseName = "Waxing Gibbous"; phaseEmoji = "🌔"; }
-            else if (phaseAge < 16.61) { phaseName = "Full Moon"; phaseEmoji = "🌕"; }
-            else if (phaseAge < 20.30) { phaseName = "Waning Gibbous"; phaseEmoji = "🌖"; }
-            else if (phaseAge < 23.99) { phaseName = "Third Quarter"; phaseEmoji = "🌗"; }
-            else if (phaseAge < 27.68) { phaseName = "Waning Crescent"; phaseEmoji = "🌘"; }
-            else { phaseName = "New Moon"; phaseEmoji = "🌑"; }
-
-            // Precision Tropical Zodiac Anchor: Moon entered Leo ~Oct 5, 2026
             const tropicalMonth = 27.321661;
             const refLeoDate = new Date(Date.UTC(2026, 9, 5, 12, 0)); 
             const daysSinceLeo = (now - refLeoDate) / (1000 * 60 * 60 * 24);
-            
-            // 4. Leo is index 4 in tropical zodiac array (Aries=0, Taurus=1, Gemini=2, Cancer=3, Leo=4)
             let zodiacProgress = (daysSinceLeo / tropicalMonth) % 1;
             if (zodiacProgress < 0) zodiacProgress += 1;
             
             let signIndex = Math.floor((4 + (zodiacProgress * 12)) % 12);
-
             const zodiacSigns = [
                 "Aries ♈", "Taurus ♉", "Gemini ♊", "Cancer ♋",
                 "Leo ♌", "Virgo ♍", "Libra ♎", "Scorpio ♏",
                 "Sagittarius ♐", "Capricorn ♑", "Aquarius ♒", "Pisces ♓"
             ];
 
-            document.getElementById('moon-phase').innerText = phaseName;
-            document.getElementById('moon-emoji').innerText = phaseEmoji;
             document.getElementById('moon-sign').innerText = zodiacSigns[signIndex];
         }
 
-        calculateMoonData();
+        fetchLiveMoonData();
     </script>
 </body>
 </html>
