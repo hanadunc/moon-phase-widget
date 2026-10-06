@@ -57,8 +57,8 @@
         <h1 class="widget-title">Lunar Calendar</h1>
         <div id="moon-emoji" class="moon-icon">🌗</div>
         <div class="moon-info">
-            <p>Phase: <span id="moon-phase" class="highlight">Fetching live data...</span></p>
-            <p>Moon in: <span id="moon-sign" class="highlight">Fetching live data...</span></p>
+            <p>Phase: <span id="moon-phase" class="highlight">Last Quarter</span></p>
+            <p>Moon in: <span id="moon-sign" class="highlight">Leo ♌</span></p>
         </div>
     </div>
 
@@ -71,9 +71,7 @@
 
                 if (data && data.length > 0) {
                     const moon = data[0];
-                    
-                    // Map API Phase to Name & Emoji
-                    const phaseName = moon.Phase || "Third Quarter";
+                    const phaseName = moon.Phase || "Last Quarter";
                     let phaseEmoji = "🌗";
 
                     if (phaseName.includes("New")) phaseEmoji = "🌑";
@@ -82,19 +80,17 @@
                     else if (phaseName.includes("Waxing Gibbous")) phaseEmoji = "🌔";
                     else if (phaseName.includes("Full")) phaseEmoji = "🌕";
                     else if (phaseName.includes("Waning Gibbous")) phaseEmoji = "🌖";
-                    else if (phaseName.includes("3rd") || phaseName.includes("Third")) phaseEmoji = "🌗";
+                    else if (phaseName.includes("3rd") || phaseName.includes("Third") || phaseName.includes("Last")) phaseEmoji = "🌗";
                     else if (phaseName.includes("Waning Crescent")) phaseEmoji = "🌘";
 
                     document.getElementById('moon-phase').innerText = phaseName;
                     document.getElementById('moon-emoji').innerText = phaseEmoji;
                 }
             } catch (err) {
-                // Fallback to local precision display if offline
                 document.getElementById('moon-phase').innerText = "Last Quarter";
                 document.getElementById('moon-emoji').innerText = "🌗";
             }
 
-            // Zodiac Sign logic using exact Tropical Ephemeris position
             const now = new Date();
             const tropicalMonth = 27.321661;
             const refLeoDate = new Date(Date.UTC(2026, 9, 5, 12, 0)); 
