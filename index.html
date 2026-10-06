@@ -35,7 +35,6 @@
             position: relative;
         }
 
-        /* Ambient Glow Effect */
         .widget-card::before {
             content: '';
             position: absolute;
@@ -116,7 +115,10 @@
 
         .symbol {
             color: #fceecb;
-            margin-left: 4px;
+            font-size: 1.1rem;
+            margin-left: 6px;
+            vertical-align: middle;
+            display: inline-block;
         }
     </style>
 </head>
@@ -128,9 +130,7 @@
         <div class="illustration-container">
             <span class="sparkle">✦</span>
             <svg class="moon-graphic" viewBox="0 0 100 100">
-                <!-- Base Moon Sphere -->
                 <circle cx="50" cy="50" r="42" fill="#151328" stroke="#fceecb" stroke-width="1.5" />
-                <!-- Illuminated Crescent (Last Quarter / Waning) -->
                 <path d="M 50 8 A 42 42 0 0 1 50 92 A 12 42 0 0 1 50 8 Z" fill="#fceecb" />
             </svg>
             <span class="sparkle">✦</span>
@@ -138,7 +138,7 @@
 
         <div class="moon-info">
             <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
-            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span><span class="symbol">♌</span></p>
+            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span> <span class="symbol" id="zodiac-icon">&#9804;&#65038;</span></p>
         </div>
     </div>
 
@@ -166,12 +166,13 @@
             if (zodiacProgress < 0) zodiacProgress += 1;
             
             let signIndex = Math.floor((4 + (zodiacProgress * 12)) % 12);
-            const zodiacSigns = ["Aries ♈", "Taurus ♉", "Gemini ♊", "Cancer ♋", "Leo ♌", "Virgo ♍", "Libra ♎", "Scorpio ♏", "Sagittarius ♐", "Capricorn ♑", "Aquarius ♒", "Pisces ♓"];
             const zodiacNames = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
-            const zodiacSymbols = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"];
+            
+            // HTML Entity codes force text-rendering (no purple emoji boxes)
+            const zodiacEntities = ["&#9800;&#65038;", "&#9801;&#65038;", "&#9802;&#65038;", "&#9803;&#65038;", "&#9804;&#65038;", "&#9805;&#65038;", "&#9806;&#65038;", "&#9807;&#65038;", "&#9808;&#65038;", "&#9809;&#65038;", "&#9810;&#65038;", "&#9811;&#65038;"];
 
             document.getElementById('moon-sign').innerText = zodiacNames[signIndex];
-            document.querySelector('.symbol').innerText = zodiacSymbols[signIndex];
+            document.getElementById('zodiac-icon').innerHTML = zodiacEntities[signIndex];
         }
 
         fetchLiveMoonData();
