@@ -3,19 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desktop Widget</title>
-    <!-- Google Fonts: Cinzel & Quicksand -->
+    <title>Moon Calendar Widget</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             min-height: 100vh;
             display: flex;
@@ -25,8 +19,6 @@
             font-family: 'Quicksand', sans-serif;
             color: #ffffff;
         }
-
-        /* Glassmorphism Card Container */
         .widget-card {
             width: 320px;
             padding: 24px;
@@ -36,27 +28,33 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            text-align: center;
         }
-
         .widget-title {
             font-family: 'Cinzel', serif;
             font-size: 1.4rem;
             letter-spacing: 1px;
-            margin-bottom: 12px;
-            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 16px;
         }
-
-        .widget-content {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.75);
+        .moon-info {
+            margin-top: 12px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        .highlight {
+            color: #e2c044;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
     <div class="widget-card">
-        <h1 class="widget-title">Documents</h1>
-        <p class="widget-content">Welcome to your desktop widget layout.</p>
+        <h1 class="widget-title">Lunar Calendar</h1>
+        <div class="moon-info">
+            <p>Phase: <span id="moon-phase" class="highlight">Loading...</span></p>
+            <p>Moon in: <span id="moon-sign" class="highlight">Loading...</span></p>
+        </div>
     </div>
 </body>
 </html>
