@@ -23,7 +23,7 @@
 
         .widget-card {
             width: 340px;
-            padding: 34px 28px;
+            padding: 34px 28px 20px 28px;
             border-radius: 28px;
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(24px);
@@ -33,6 +33,8 @@
                         inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
             text-align: center;
             position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
         }
 
         .widget-card::before {
@@ -120,6 +122,71 @@
             vertical-align: middle;
             display: inline-block;
         }
+
+        /* Expandable Shortcuts Section */
+        .drawer-toggle {
+            margin-top: 22px;
+            padding-top: 14px;
+            border-top: 1px solid rgba(252, 238, 203, 0.15);
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(252, 238, 203, 0.7);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.3s ease;
+        }
+
+        .drawer-toggle:hover {
+            color: #fceecb;
+        }
+
+        .shortcuts-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            margin-top: 0;
+        }
+
+        .shortcuts-container.open {
+            max-height: 240px;
+            opacity: 1;
+            margin-top: 14px;
+        }
+
+        .shortcut-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-bottom: 8px;
+        }
+
+        .shortcut-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(252, 238, 203, 0.1);
+            color: #f3f0e6;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: all 0.25s ease;
+        }
+
+        .shortcut-item:hover {
+            background: rgba(252, 238, 203, 0.15);
+            border-color: rgba(252, 238, 203, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .shortcut-icon {
+            font-size: 0.85rem;
+            color: rgba(252, 238, 203, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -140,42 +207,22 @@
             <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
             <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span> <span class="symbol" id="zodiac-icon">&#9804;&#65038;</span></p>
         </div>
+
+        <!-- Toggle Drawer for Work Shortcuts -->
+        <div class="drawer-toggle" onclick="toggleShortcuts()">
+            <span id="toggle-label">✦ Work Shortcuts ▾</span>
+        </div>
+
+        <div class="shortcuts-container" id="shortcuts-drawer">
+            <ul class="shortcut-list">
+                <li><a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="shortcut-item"><span>📧 Gmail Inbox</span><span class="shortcut-icon">↗</span></a></li>
+                <li><a href="https://app.clickup.com/9011642634/v/l/li/901113023209?pr=90113938743" target="_blank" class="shortcut-item"><span>✅ ClickUp Tasks</span><span class="shortcut-icon">↗</span></a></li>
+                <li><a href="https://docs.google.com/spreadsheets/u/0/?tgif=d" target="_blank" class="shortcut-item"><span>📊 Google Sheets</span><span class="shortcut-icon">↗</span></a></li>
+            </ul>
+        </div>
     </div>
 
     <script>
         async function fetchLiveMoonData() {
             try {
-                const unixTime = Math.floor(Date.now() / 1000);
-                const response = await fetch(`https://api.farmsense.net/v1/moonphases/?d=${unixTime}`);
-                const data = await response.json();
-
-                if (data && data.length > 0) {
-                    const moon = data[0];
-                    const phaseName = moon.Phase || "Last Quarter";
-                    document.getElementById('moon-phase').innerText = phaseName;
-                }
-            } catch (err) {
-                document.getElementById('moon-phase').innerText = "Last Quarter";
-            }
-
-            const now = new Date();
-            const tropicalMonth = 27.321661;
-            const refLeoDate = new Date(Date.UTC(2026, 9, 5, 12, 0)); 
-            const daysSinceLeo = (now - refLeoDate) / (1000 * 60 * 60 * 24);
-            let zodiacProgress = (daysSinceLeo / tropicalMonth) % 1;
-            if (zodiacProgress < 0) zodiacProgress += 1;
-            
-            let signIndex = Math.floor((4 + (zodiacProgress * 12)) % 12);
-            const zodiacNames = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
-            
-            // HTML Entity codes force text-rendering (no purple emoji boxes)
-            const zodiacEntities = ["&#9800;&#65038;", "&#9801;&#65038;", "&#9802;&#65038;", "&#9803;&#65038;", "&#9804;&#65038;", "&#9805;&#65038;", "&#9806;&#65038;", "&#9807;&#65038;", "&#9808;&#65038;", "&#9809;&#65038;", "&#9810;&#65038;", "&#9811;&#65038;"];
-
-            document.getElementById('moon-sign').innerText = zodiacNames[signIndex];
-            document.getElementById('zodiac-icon').innerHTML = zodiacEntities[signIndex];
-        }
-
-        fetchLiveMoonData();
-    </script>
-</body>
-</html>
+                const unixTime =
