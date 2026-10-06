@@ -33,7 +33,6 @@
                         inset 0 1px 1px 0 rgba(255, 255, 255, 0.25);
             text-align: center;
             position: relative;
-            transition: all 0.3s ease;
         }
 
         .widget-title {
@@ -108,31 +107,30 @@
             display: inline-block;
         }
 
-        /* Shortcuts Toggle Button */
-        .drawer-toggle {
+        /* Native Expandable Details Element */
+        details {
             margin-top: 22px;
-            padding-top: 14px;
             border-top: 1px solid rgba(252, 238, 203, 0.15);
+            padding-top: 14px;
+        }
+
+        summary {
             font-size: 0.78rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: rgba(252, 238, 203, 0.7);
             cursor: pointer;
             user-select: none;
+            list-style: none;
             transition: color 0.3s ease;
         }
 
-        .drawer-toggle:hover {
-            color: #fceecb;
-        }
-
-        .shortcuts-container {
+        summary::-webkit-details-marker {
             display: none;
-            margin-top: 14px;
         }
 
-        .shortcuts-container.open {
-            display: block;
+        summary:hover {
+            color: #fceecb;
         }
 
         .shortcut-list {
@@ -140,6 +138,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            margin-top: 14px;
         }
 
         .shortcut-item {
@@ -176,22 +175,4 @@
             <span class="sparkle">✦</span>
             <svg class="moon-graphic" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="42" fill="#151328" stroke="#fceecb" stroke-width="1.5" />
-                <path d="M 50 8 A 42 42 0 0 1 50 92 A 12 42 0 0 1 50 8 Z" fill="#fceecb" />
-            </svg>
-            <span class="sparkle">✦</span>
-        </div>
-
-        <div class="moon-info">
-            <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
-            <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span> <span class="symbol" id="zodiac-icon">&#9804;&#65038;</span></p>
-        </div>
-
-        <!-- Toggle Drawer for Work Shortcuts -->
-        <div class="drawer-toggle" onclick="toggleShortcuts()">
-            <span id="toggle-label">✦ Work Shortcuts ▾</span>
-        </div>
-
-        <div class="shortcuts-container" id="shortcuts-drawer">
-            <ul class="shortcut-list">
-                <li><a href="https://mail.google.com/mail/u/0/#inbox" target="_blank" class="shortcut-item"><span>📧 Gmail Inbox</span><span class="shortcut-icon">↗</span></a></li>
-                <li><a href="
+                <path d="M 50 8 A 42 42 0 0 1 50 92 A 12 42 0 0 1 50 8 Z" fill="#fceecb"
