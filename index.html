@@ -21,7 +21,7 @@
         }
         .widget-card {
             width: 320px;
-            padding: 24px;
+            padding: 28px 24px;
             border-radius: 20px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(16px);
@@ -34,10 +34,14 @@
             font-family: 'Cinzel', serif;
             font-size: 1.4rem;
             letter-spacing: 1px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
+        }
+        .moon-icon {
+            font-size: 3rem;
+            margin: 8px 0;
         }
         .moon-info {
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 1rem;
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.85);
@@ -51,10 +55,58 @@
 <body>
     <div class="widget-card">
         <h1 class="widget-title">Lunar Calendar</h1>
+        <div id="moon-emoji" class="moon-icon">🌕</div>
         <div class="moon-info">
-            <p>Phase: <span id="moon-phase" class="highlight">Loading...</span></p>
-            <p>Moon in: <span id="moon-sign" class="highlight">Loading...</span></p>
+            <p>Phase: <span id="moon-phase" class="highlight">Calculating...</span></p>
+            <p>Moon in: <span id="moon-sign" class="highlight">Calculating...</span></p>
         </div>
     </div>
+
+    <script>
+        function calculateMoonData() {
+            const now = new Date();
+            
+            // Approximate Lunar Phase Calculation
+            // Known new moon reference date: Jan 11, 2024
+            const refDate = new Date(2024, 0, 11, 11, 57);
+            const synodicMonth = 29.53058770576; // days in lunar cycle
+            const diffDays = (now - refDate) / (1000 * 60 * 60 * 24);
+            const phaseProgress = (diffDays % synodicMonth) / synodicMonth;
+            const phaseAge = phaseProgress * synodicMonth;
+
+            let phaseName = "";
+            let phaseEmoji = "🌑";
+
+            if (phaseAge < 1.84566) { phaseName = "New Moon"; phaseEmoji = "🌑"; }
+            else if (phaseAge < 5.53699) { phaseName = "Waxing Crescent"; phaseEmoji = "🌒"; }
+            else if (phaseAge < 9.22831) { phaseName = "First Quarter"; phaseEmoji = "🌓"; }
+            else if (phaseAge < 12.91963) { phaseName = "Waxing Gibbous"; phaseEmoji = "🌔"; }
+            else if (phaseAge < 16.61096) { phaseName = "Full Moon"; phaseEmoji = "🌕"; }
+            else if (phaseAge < 20.30228) { phaseName = "Waning Gibbous"; phaseEmoji = "🌖"; }
+            else if (phaseAge < 23.99361) { phaseName = "Third Quarter"; phaseEmoji = "🌗"; }
+            else if (phaseAge < 27.68493) { phaseName = "Waning Crescent"; phaseEmoji = "🌘"; }
+            else { phaseName = "New Moon"; phaseEmoji = "🌑"; }
+
+            // Approximate Tropical Zodiac Moon Sign Calculation
+            // Known reference: Moon enters Aries ~Mar 21, 2024 00:00 UTC
+            const refZodiacDate = new Date(Date.UTC(2024, 2, 21, 0, 0));
+            const tropicalMonth = 27.321661; // days for Moon to orbit zodiac
+            const zodiacDiff = (now - refZodiacDate) / (1000 * 60 * 60 * 24);
+            const zodiacProgress = (zodiacDiff % tropicalMonth) / tropicalMonth;
+            const signIndex = Math.floor((zodiacProgress < 0 ? zodiacProgress + 1 : zodiacProgress) * 12);
+
+            const zodiacSigns = [
+                "Aries ♈", "Taurus ♉", "Gemini ♊", "Cancer ♋",
+                "Leo ♌", "Virgo ♍", "Libra ♎", "Scorpio ♏",
+                "Sagittarius ♐", "Capricorn ♑", "Aquarius ♒", "Pisces ♓"
+            ];
+
+            document.getElementById('moon-phase').innerText = phaseName;
+            document.getElementById('moon-emoji').innerText = phaseEmoji;
+            document.getElementById('moon-sign').innerText = zodiacSigns[signIndex];
+        }
+
+        calculateMoonData();
+    </script>
 </body>
 </html>
