@@ -107,9 +107,20 @@
             display: inline-block;
         }
 
-        /* Clean Glassmorphic Shortcut Buttons */
+        .daily-reflection {
+            margin-top: 14px;
+            padding: 10px 12px;
+            border-radius: 14px;
+            background: rgba(252, 238, 203, 0.05);
+            border: 1px dashed rgba(252, 238, 203, 0.2);
+            font-style: italic;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: rgba(252, 238, 203, 0.9);
+        }
+
         .shortcut-section {
-            margin-top: 20px;
+            margin-top: 18px;
             padding-top: 16px;
             border-top: 1px solid rgba(252, 238, 203, 0.15);
         }
@@ -156,7 +167,7 @@
             <span class="sparkle">✦</span>
             <svg class="moon-graphic" viewBox="0 0 100 100">
                 <circle cx="50" cy="50" r="42" fill="#151328" stroke="#fceecb" stroke-width="1.5" />
-                <path d="M 50 8 A 42 42 0 0 1 50 92 A 12 42 0 0 1 50 8 Z" fill="#fceecb" />
+                <path id="moon-path" d="M 50 8 A 42 42 0 0 0 50 92 A 0 42 0 0 0 50 8 Z" fill="#fceecb" />
             </svg>
             <span class="sparkle">✦</span>
         </div>
@@ -164,6 +175,10 @@
         <div class="moon-info">
             <p><span class="label">Phase:</span> <span id="moon-phase" class="highlight">Last Quarter</span></p>
             <p><span class="label">Moon in:</span> <span id="moon-sign" class="highlight">Leo</span> <span class="symbol" id="zodiac-icon">&#9804;&#65038;</span></p>
+        </div>
+
+        <div class="daily-reflection" id="reflection-text">
+            "Lead with warm-hearted clarity and embrace your creative expression."
         </div>
 
         <div class="shortcut-section">
@@ -176,6 +191,52 @@
     </div>
 
     <script>
+        const reflections = {
+            "Aries": "Pioneer your intentions with courageous initiative and steady focus.",
+            "Taurus": "Ground yourself in comfort, deliberate pace, and sensory presence.",
+            "Gemini": "Follow your curiosity and embrace lighthearted, clear communication.",
+            "Cancer": "Honor your inner landscape and protect your energetic boundaries.",
+            "Leo": "Lead with warm-hearted clarity and embrace your creative expression.",
+            "Virgo": "Refine your daily systems with gentle discernment and mindful care.",
+            "Libra": "Seek harmony in your environment and cultivate graceful balance.",
+            "Scorpio": "Trust your intuition and channel your depth into purposeful transformation.",
+            "Sagittarius": "Expand your perspective and seek wisdom in every interaction.",
+            "Capricorn": "Build towards your aspirations with steady discipline and quiet mastery.",
+            "Aquarius": "Honor your unique perspective and cultivate inspiring connections.",
+            "Pisces": "Surrender to the flow of imagination and nurture your compassionate spirit."
+        };
+
+        function updateSVGPhase(phaseName) {
+            const path = document.getElementById('moon-path');
+            const name = phaseName.toLowerCase();
+
+            if (name.includes("new")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 1 50 92 A 42 42 0 0 1 50 8 Z");
+                path.setAttribute("fill", "#151328");
+            } else if (name.includes("full")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 1 1 49.9 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("waxing crescent")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 1 50 92 A 26 42 0 0 0 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("1st") || name.includes("first quarter")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 1 50 92 A 0 42 0 0 1 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("waxing gibbous")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 1 50 92 A 26 42 0 0 1 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("waning gibbous")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 0 50 92 A 26 42 0 0 0 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("3rd") || name.includes("third quarter") || name.includes("last quarter")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 0 50 92 A 0 42 0 0 0 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            } else if (name.includes("waning crescent")) {
+                path.setAttribute("d", "M 50 8 A 42 42 0 0 0 50 92 A 26 42 0 0 1 50 8 Z");
+                path.setAttribute("fill", "#fceecb");
+            }
+        }
+
         async function fetchLiveMoonData() {
             try {
                 const unixTime = Math.floor(Date.now() / 1000);
@@ -186,9 +247,11 @@
                     const moon = data[0];
                     const phaseName = moon.Phase || "Last Quarter";
                     document.getElementById('moon-phase').innerText = phaseName;
+                    updateSVGPhase(phaseName);
                 }
             } catch (err) {
                 document.getElementById('moon-phase').innerText = "Last Quarter";
+                updateSVGPhase("Last Quarter");
             }
 
             const now = new Date();
@@ -202,8 +265,13 @@
             const zodiacNames = ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra", "Scorpio", "Sagittarius", "Capricorn", "Aquarius", "Pisces"];
             const zodiacEntities = ["&#9800;&#65038;", "&#9801;&#65038;", "&#9802;&#65038;", "&#9803;&#65038;", "&#9804;&#65038;", "&#9805;&#65038;", "&#9806;&#65038;", "&#9807;&#65038;", "&#9808;&#65038;", "&#9809;&#65038;", "&#9810;&#65038;", "&#9811;&#65038;"];
 
-            document.getElementById('moon-sign').innerText = zodiacNames[signIndex];
+            const activeSign = zodiacNames[signIndex];
+            document.getElementById('moon-sign').innerText = activeSign;
             document.getElementById('zodiac-icon').innerHTML = zodiacEntities[signIndex];
+            
+            if (reflections[activeSign]) {
+                document.getElementById('reflection-text').innerText = `"${reflections[activeSign]}"`;
+            }
         }
 
         fetchLiveMoonData();
