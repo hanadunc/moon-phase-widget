@@ -1,18 +1,20 @@
 const { app, BrowserWindow } = require('electron');
+const path = require('path');
 
 function createWindow() {
     const win = new BrowserWindow({
-        width: 400,
-        height: 480,
+        width: 360,
+        height: 420,
         frame: false,
         transparent: true,
         resizable: false,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
 
-    win.loadFile('index.html');
+    win.loadFile(path.join(__dirname, 'index.html'));
 }
 
 app.whenReady().then(createWindow);
