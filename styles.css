@@ -1,11 +1,10 @@
-/* Container & Base Styles */
 html, body {
   background: transparent !important;
   background-color: rgba(0, 0, 0, 0) !important;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  font-family: 'Cinzel', serif, system-ui;
+  font-family: 'Cinzel', serif;
   color: #F8F5EE;
   -webkit-app-region: drag;
 }
@@ -17,9 +16,9 @@ button, a, input {
 .widget-container {
   width: 320px;
   background: #18111B;
-  border: 1px solid rgba(255, 235, 200, 0.2);
+  border: 1px solid rgba(255, 235, 200, 0.25);
   border-radius: 20px;
-  padding: 20px 16px;
+  padding: 22px 18px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -27,17 +26,46 @@ button, a, input {
   position: relative;
 }
 
-/* Header & Subheader Balance */
+/* STAR POSITIONING & GLOW */
+.star-8 {
+  position: absolute;
+  color: #E6CA65; /* Gold */
+  font-size: 1.2rem;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.star-8.glow {
+  text-shadow: 0 0 6px rgba(230, 202, 101, 0.8), 0 0 12px rgba(230, 202, 101, 0.4);
+}
+
+.diamond-4 {
+  position: absolute;
+  color: #D4AF37;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* STAR PLACEMENTS */
+.star-top-left { top: 20px; left: 20px; font-size: 1.3rem; }
+.star-top-right { top: 20px; right: 20px; font-size: 1.3rem; }
+.star-mid-left { top: 140px; left: 16px; font-size: 1.1rem; }
+.star-bottom-right { bottom: 100px; right: 18px; font-size: 1.2rem; }
+
+.diamond-top-mid { top: 16px; }
+.diamond-mid-right { top: 130px; right: 24px; font-size: 0.85rem; }
+.diamond-bottom-left { bottom: 85px; left: 24px; font-size: 0.7rem; }
+
+/* HEADER */
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
+  margin-top: 4px;
 }
 
 .main-title {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   color: #FAF6EE;
@@ -45,127 +73,58 @@ button, a, input {
   text-align: center;
 }
 
-.header-star {
-  width: 16px;
-  height: 16px;
-}
-
 .subheader {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-  margin-top: 4px;
-  margin-bottom: 12px;
+  margin-top: 6px;
+  margin-bottom: 16px;
   color: #D4AF37;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
 }
 
-/* Star Styling & Positioning */
-.star-8 {
-  fill: #E6CA65; /* Gold */
-}
-
-.star-8.glow {
-  filter: drop-shadow(0 0 5px rgba(230, 202, 101, 0.75));
-}
-
-.star-4.diamond-bg {
-  fill: #D4AF37;
-  opacity: 0.65;
-}
-
-.star-top-left {
-  position: absolute;
-  top: 75px;
-  left: 20px;
-  width: 22px;
-  height: 22px;
-}
-
-.star-top-right {
-  position: absolute;
-  top: 80px;
-  right: 22px;
-  width: 20px;
-  height: 20px;
-}
-
-.star-bottom-right {
-  position: absolute;
-  bottom: 110px;
-  right: 18px;
-  width: 24px;
-  height: 24px;
-}
-
-.diamond-left-far {
-  position: absolute;
-  top: 120px;
-  left: 8px;
-  width: 11px;
-  height: 11px;
-}
-
-.diamond-right-mid {
-  position: absolute;
-  top: 135px;
-  right: 48px;
-  width: 10px;
-  height: 10px;
-}
-
-.diamond-bottom-left {
-  position: absolute;
-  bottom: 135px;
-  left: 32px;
-  width: 12px;
-  height: 12px;
-}
-
-/* Moon Graphic Area */
+/* MOON GRAPHIC */
 .moon-display {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0 16px 0;
+  margin: 8px 0 18px 0;
 }
 
 .moon-graphic-container {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .moon-graphic {
-  width: 68px;
-  height: 68px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
 }
 
-.accent-sparkle {
+.side-sparkle {
   color: #E6CA65;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   opacity: 0.8;
 }
 
-/* Details Section (Spacing from left design) */
+/* DETAILS SECTION */
 .details-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px; /* Spacing matched from left-side layout */
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 18px;
 }
 
 .detail-row {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.9rem;
 }
 
 .label {
@@ -176,23 +135,22 @@ button, a, input {
 
 .value {
   font-weight: 700;
+  font-size: 0.92rem;
   color: #FFFFFF;
 }
 
 .emoji {
   color: #B282DD;
   font-size: 0.95rem;
-  margin-left: 2px;
 }
 
-/* Stats Section (Lexend Font) */
+/* STATS SECTION */
 .stats-section {
   width: 100%;
   display: flex;
   justify-content: space-around;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 12px;
-  margin-top: 4px;
+  padding-top: 14px;
 }
 
 .stat-box {
@@ -211,7 +169,6 @@ button, a, input {
 .stat-value.lexend {
   font-family: 'Lexend', sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  font-size: 1.1rem;
   color: #FAF6EE;
 }
