@@ -16,9 +16,9 @@ button, a, input {
 .widget-container {
   width: 320px;
   background: #18111B;
-  border: 1px solid rgba(255, 235, 200, 0.25);
+  border: 1px solid rgba(255, 235, 200, 0.22);
   border-radius: 20px;
-  padding: 22px 18px;
+  padding: 24px 18px 20px 18px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -26,42 +26,39 @@ button, a, input {
   position: relative;
 }
 
-/* STAR POSITIONING & GLOW */
+/* VECTOR SVG STAR STYLING */
 .star-8 {
   position: absolute;
-  color: #E6CA65; /* Gold */
-  font-size: 1.2rem;
-  line-height: 1;
-  user-select: none;
+  fill: #F0E2A8; /* Radiant Soft Gold */
   pointer-events: none;
+  user-select: none;
 }
 
 .star-8.glow {
-  text-shadow: 0 0 6px rgba(230, 202, 101, 0.8), 0 0 12px rgba(230, 202, 101, 0.4);
+  filter: drop-shadow(0 0 4px rgba(240, 226, 168, 0.85)) drop-shadow(0 0 8px rgba(230, 202, 101, 0.4));
 }
 
 .diamond-4 {
   position: absolute;
-  color: #D4AF37;
-  font-size: 0.75rem;
-  opacity: 0.7;
-  user-select: none;
+  fill: #D4AF37;
+  opacity: 0.65;
   pointer-events: none;
+  user-select: none;
 }
 
-/* STAR PLACEMENTS */
-.star-top-left { top: 20px; left: 20px; font-size: 1.3rem; }
-.star-top-right { top: 20px; right: 20px; font-size: 1.3rem; }
-.star-mid-left { top: 140px; left: 16px; font-size: 1.1rem; }
-.star-bottom-right { bottom: 100px; right: 18px; font-size: 1.2rem; }
+/* EXACT PLACEMENT & SIZING */
+.star-top-left { top: 22px; left: 18px; width: 22px; height: 22px; }
+.star-top-right { top: 22px; right: 18px; width: 22px; height: 22px; }
+.star-mid-left { top: 132px; left: 16px; width: 18px; height: 18px; }
+.star-bottom-right { bottom: 92px; right: 16px; width: 20px; height: 20px; }
 
-.diamond-top-mid { top: 16px; }
-.diamond-mid-right { top: 130px; right: 24px; font-size: 0.85rem; }
-.diamond-bottom-left { bottom: 85px; left: 24px; font-size: 0.7rem; }
+.diamond-top-mid { top: 16px; left: 152px; width: 12px; height: 12px; }
+.diamond-mid-right { top: 122px; right: 38px; width: 10px; height: 10px; }
+.diamond-bottom-left { bottom: 82px; left: 24px; width: 10px; height: 10px; }
 
-/* HEADER */
+/* HEADER & SUBHEADER */
 .header {
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .main-title {
@@ -78,20 +75,24 @@ button, a, input {
   align-items: center;
   gap: 6px;
   margin-top: 6px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   color: #D4AF37;
   font-size: 0.72rem;
   letter-spacing: 0.15em;
 }
 
-/* MOON GRAPHIC */
+.motif {
+  font-size: 0.65rem;
+}
+
+/* MOON DISPLAY */
 .moon-display {
   position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 8px 0 18px 0;
+  margin: 6px 0 16px 0;
 }
 
 .moon-graphic-container {
@@ -107,8 +108,8 @@ button, a, input {
 }
 
 .side-sparkle {
-  color: #E6CA65;
-  font-size: 0.8rem;
+  color: #F0E2A8;
+  font-size: 0.75rem;
   opacity: 0.8;
 }
 
@@ -118,7 +119,7 @@ button, a, input {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .detail-row {
@@ -150,7 +151,7 @@ button, a, input {
   display: flex;
   justify-content: space-around;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 14px;
+  padding-top: 12px;
 }
 
 .stat-box {
@@ -169,6 +170,6 @@ button, a, input {
 .stat-value.lexend {
   font-family: 'Lexend', sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #FAF6EE;
 }
