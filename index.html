@@ -4,50 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Celestial Guide</title>
-  <!-- Import Lexend font for illumination and age data -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="widget-container">
     
-    <!-- HEADER WITH 8-POINT CORNER STARS -->
+    <!-- 8-POINT CORNER STARS & ACCENTS -->
+    <span class="star-8 glow star-top-left">✴</span>
+    <span class="star-8 glow star-top-right">✴</span>
+    <span class="star-8 glow star-mid-left">✴</span>
+    <span class="star-8 glow star-bottom-right">✴</span>
+
+    <!-- 4-POINT ACCENT DIAMONDS -->
+    <span class="diamond-4 diamond-top-mid">✦</span>
+    <span class="diamond-4 diamond-mid-right">✦</span>
+    <span class="diamond-4 diamond-bottom-left">✦</span>
+
+    <!-- HEADER -->
     <header class="header">
-      <svg class="star-8 glow header-star" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
       <h1 class="main-title">CELESTIAL GUIDE</h1>
-      <svg class="star-8 glow header-star" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
     </header>
 
-    <!-- SUBHEADER WITH MOTIFS & EMOJI -->
+    <!-- SUBHEADER WITH MOTIFS -->
     <div class="subheader">
       <span class="motif">✦</span>
       <span class="sub-text">LUNAR EPHEMERIS</span>
       <span class="motif">✦</span>
     </div>
 
-    <!-- MAIN DISPLAY AREA -->
+    <!-- MOON DISPLAY -->
     <div class="moon-display">
-      <!-- Background 4-point accent diamonds (no glow, distinct sizes) -->
-      <svg class="star-4 diamond-bg diamond-left-far" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
-      <svg class="star-4 diamond-bg diamond-right-mid" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
-      <svg class="star-4 diamond-bg diamond-bottom-left" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
-
-      <!-- 8-Point Stars with Soft Glow -->
-      <svg class="star-8 glow star-top-left" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
-      <svg class="star-8 glow star-top-right" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
-      <svg class="star-8 glow star-bottom-right" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
-
-      <!-- Moon Graphic & Side Accents -->
       <div class="moon-graphic-container">
-        <span class="accent-sparkle left-sparkle">✦</span>
+        <span class="side-sparkle">✦</span>
         <div id="moon-graphic" class="moon-graphic"></div>
-        <span class="accent-sparkle right-sparkle">✦</span>
+        <span class="side-sparkle">✦</span>
       </div>
     </div>
 
-    <!-- PHASE & SIGN DETAILS (SPACING BROUGHT OVER FROM LEFT DESIGN) -->
+    <!-- DETAILS SECTION (LEFT-SIDE SPACING) -->
     <div class="details-section">
       <div class="detail-row">
         <span class="label">PHASE:</span>
@@ -60,7 +57,7 @@
       </div>
     </div>
 
-    <!-- BOTTOM STATS SECTION (LEXEND FONT) -->
+    <!-- BOTTOM STATS (LEXEND FONT) -->
     <div class="stats-section">
       <div class="stat-box">
         <span class="stat-label">ILLUMINATION</span>
