@@ -1,0 +1,12 @@
+{
+  "name": "lunar-desktop-widget",
+  "version": "1.0.0",
+  "description": "Lunar Ephemeris Desktop Widget",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^30.0.0"
+  }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Celestial Guide</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="widget-window">
+    
+    <!-- DRAG HEADER -->
+    <div class="drag-region">
+      <div class="title-block">
+        <div class="app-title">✦ LUNAR CYCLE ✦</div>
+        <div class="app-subtitle">READING THE STARS</div>
+      </div>
+      <div class="window-controls">
+        <button class="control-btn" id="min-btn">-</button>
+        <button class="control-btn" id="close-btn">×</button>
+      </div>
+    </div>
+
+    <!-- BACKGROUND ANIMATIONS -->
+    <div class="stars-container">
+      <div class="shooting-star"></div>
+      <div class="star star-1"></div>
+      <div class="star star-2"></div>
+      <div class="star star-3"></div>
+      <div class="star star-4"></div>
+      <div class="star star-5"></div>
+
+     <svg class="constellation-svg" viewBox="0 0 320 320">
+  <!-- Top Left Constellation (Pulled inward closer to Moon) -->
+  <path d="M 50 82 L 72 90 L 92 96 L 104 108" stroke="#d8b878" stroke-width="0.8" stroke-dasharray="2 2" fill="none" opacity="0.35" />
+  <circle cx="50" cy="82" r="1.5" fill="#d8b878" opacity="0.5" />
+  <circle cx="72" cy="90" r="1.5" fill="#d8b878" opacity="0.5" />
+  <circle cx="92" cy="96" r="1.5" fill="#d8b878" opacity="0.5" />
+  <circle cx="104" cy="108" r="1.5" fill="#d8b878" opacity="0.5" />
+
+  <!-- Bottom Right Constellation (Pulled inward) -->
+  <path d="M 210 262 L 232 274 L 255 264" stroke="#d8b878" stroke-width="0.8" stroke-dasharray="2 2" fill="none" opacity="0.35" />
+  <circle cx="210" cy="262" r="1.5" fill="#d8b878" opacity="0.5" />
+  <circle cx="232" cy="274" r="1.5" fill="#d8b878" opacity="0.5" />
+  <circle cx="255" cy="264" r="1.5" fill="#d8b878" opacity="0.5" />
+</svg>
+    </div>
+
+    <!-- MAIN BODY SECTION -->
+    <div class="content-body">
+      <!-- MOON GRAPHIC FOCAL POINT -->
+      <div id="moon-graphic" class="moon-stage"></div>
+
+      <!-- MIDDLE ZODIAC & PHASE BLOCK -->
+      <div class="text-block-middle">
+        <div class="zodiac-wrapper">
+          <span id="moon-sign" class="zodiac-sign">MOON IN VIRGO</span>
+          <svg id="zodiac-icon" class="zodiac-symbol" viewBox="0 0 24 24"></svg>
+        </div>
+        <h2 id="phase-name" class="phase-subtitle">WANING CRESCENT</h2>
+      </div>
+
+      <!-- BOTTOM METRICS GRID -->
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="label">ILLUMINATION</span>
+          <span id="illumination-val" class="value">4%</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">LUNAR AGE</span>
+          <span id="age-val" class="value">27.2 DAYS</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
