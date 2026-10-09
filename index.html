@@ -4,77 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Celestial Guide</title>
+  <!-- Import Lexend font for illumination and age data -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="widget-window">
+  <div class="widget-container">
     
-    <!-- DRAG HEADER -->
-    <div class="drag-region">
-      <div class="title-block">
-        <div class="app-title">✦ LUNAR CYCLE ✦</div>
-        <div class="app-subtitle">READING THE STARS</div>
-      </div>
-      <div class="window-controls">
-        <button class="control-btn" id="min-btn">-</button>
-        <button class="control-btn" id="close-btn">×</button>
+    <!-- HEADER WITH 8-POINT CORNER STARS -->
+    <header class="header">
+      <svg class="star-8 glow header-star" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
+      <h1 class="main-title">CELESTIAL GUIDE</h1>
+      <svg class="star-8 glow header-star" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
+    </header>
+
+    <!-- SUBHEADER WITH MOTIFS & EMOJI -->
+    <div class="subheader">
+      <span class="motif">✦</span>
+      <span class="sub-text">LUNAR EPHEMERIS</span>
+      <span class="motif">✦</span>
+    </div>
+
+    <!-- MAIN DISPLAY AREA -->
+    <div class="moon-display">
+      <!-- Background 4-point accent diamonds (no glow, distinct sizes) -->
+      <svg class="star-4 diamond-bg diamond-left-far" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
+      <svg class="star-4 diamond-bg diamond-right-mid" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
+      <svg class="star-4 diamond-bg diamond-bottom-left" viewBox="0 0 24 24"><path d="M12 0L15 9L24 12L15 15L12 24L9 15L0 12L9 9Z"/></svg>
+
+      <!-- 8-Point Stars with Soft Glow -->
+      <svg class="star-8 glow star-top-left" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
+      <svg class="star-8 glow star-top-right" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
+      <svg class="star-8 glow star-bottom-right" viewBox="0 0 24 24"><path d="M12 0L14 9L23 7L16 13L21 21L12 16L3 21L8 13L1 7L10 9Z"/></svg>
+
+      <!-- Moon Graphic & Side Accents -->
+      <div class="moon-graphic-container">
+        <span class="accent-sparkle left-sparkle">✦</span>
+        <div id="moon-graphic" class="moon-graphic"></div>
+        <span class="accent-sparkle right-sparkle">✦</span>
       </div>
     </div>
 
-    <!-- BACKGROUND ANIMATIONS -->
-    <div class="stars-container">
-      <div class="shooting-star"></div>
-      <div class="star star-1"></div>
-      <div class="star star-2"></div>
-      <div class="star star-3"></div>
-      <div class="star star-4"></div>
-      <div class="star star-5"></div>
-
-     <svg class="constellation-svg" viewBox="0 0 320 320">
-  <!-- Top Left Constellation (Pulled inward closer to Moon) -->
-  <path d="M 50 82 L 72 90 L 92 96 L 104 108" stroke="#d8b878" stroke-width="0.8" stroke-dasharray="2 2" fill="none" opacity="0.35" />
-  <circle cx="50" cy="82" r="1.5" fill="#d8b878" opacity="0.5" />
-  <circle cx="72" cy="90" r="1.5" fill="#d8b878" opacity="0.5" />
-  <circle cx="92" cy="96" r="1.5" fill="#d8b878" opacity="0.5" />
-  <circle cx="104" cy="108" r="1.5" fill="#d8b878" opacity="0.5" />
-
-  <!-- Bottom Right Constellation (Pulled inward) -->
-  <path d="M 210 262 L 232 274 L 255 264" stroke="#d8b878" stroke-width="0.8" stroke-dasharray="2 2" fill="none" opacity="0.35" />
-  <circle cx="210" cy="262" r="1.5" fill="#d8b878" opacity="0.5" />
-  <circle cx="232" cy="274" r="1.5" fill="#d8b878" opacity="0.5" />
-  <circle cx="255" cy="264" r="1.5" fill="#d8b878" opacity="0.5" />
-</svg>
+    <!-- PHASE & SIGN DETAILS (SPACING BROUGHT OVER FROM LEFT DESIGN) -->
+    <div class="details-section">
+      <div class="detail-row">
+        <span class="label">PHASE:</span>
+        <span id="phase-name" class="value">Last Quarter</span>
+      </div>
+      <div class="detail-row">
+        <span class="label">MOON IN:</span>
+        <span id="zodiac-sign" class="value">Leo</span>
+        <span id="zodiac-emoji" class="emoji">♌︎</span>
+      </div>
     </div>
 
-    <!-- MAIN BODY SECTION -->
-    <div class="content-body">
-      <!-- MOON GRAPHIC FOCAL POINT -->
-      <div id="moon-graphic" class="moon-stage"></div>
-
-      <!-- MIDDLE ZODIAC & PHASE BLOCK -->
-      <div class="text-block-middle">
-        <div class="zodiac-wrapper">
-          <span id="moon-sign" class="zodiac-sign">MOON IN VIRGO</span>
-          <svg id="zodiac-icon" class="zodiac-symbol" viewBox="0 0 24 24"></svg>
-        </div>
-        <h2 id="phase-name" class="phase-subtitle">WANING CRESCENT</h2>
+    <!-- BOTTOM STATS SECTION (LEXEND FONT) -->
+    <div class="stats-section">
+      <div class="stat-box">
+        <span class="stat-label">ILLUMINATION</span>
+        <span id="illumination-value" class="stat-value lexend">4%</span>
       </div>
-
-      <!-- BOTTOM METRICS GRID -->
-      <div class="details-grid">
-        <div class="detail-item">
-          <span class="label">ILLUMINATION</span>
-          <span id="illumination-val" class="value">4%</span>
-        </div>
-        <div class="detail-item">
-          <span class="label">LUNAR AGE</span>
-          <span id="age-val" class="value">27.2 DAYS</span>
-        </div>
+      <div class="stat-box">
+        <span class="stat-label">LUNAR AGE</span>
+        <span id="lunar-age-value" class="stat-value lexend">27.2 DAYS</span>
       </div>
     </div>
 
   </div>
-
   <script src="renderer.js"></script>
 </body>
 </html>
