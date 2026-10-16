@@ -1,5 +1,6 @@
 node_modules/
+dist/
+*.log
+*.zip
+*.exe
 .DS_Store
-*.logdist/ 
-*.zip 
-*.exe 

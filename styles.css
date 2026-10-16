@@ -1,250 +1,344 @@
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
-/* ROOT CANVAS & TRANSPARENCY */
-html, body {
+html,
+body {
   background: transparent !important;
-  background-color: rgba(0, 0, 0, 0) !important;
-  width: 320px;
-  height: 320px;
   margin: 0;
-  padding: 0;
-  overflow: hidden !important;
-  user-select: none;
-  font-family: 'Cinzel', 'Georgia', serif;
-}
-
-/* MAIN WIDGET WINDOW FRAME */
-.widget-window {
-  width: 320px;
-  height: 320px;
-  background: rgba(22, 18, 28, 0.88) !important;
-  border: 1px solid rgba(216, 184, 120, 0.35) !important;
-  border-radius: 26px !important;
-  color: #f4eae1;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden !important;
-  box-shadow: inset 0 0 25px rgba(216, 184, 120, 0.05) !important;
-}
-
-/* HEADER DRAG BAR & SPACED SUBTITLE */
-.drag-region {
-  -webkit-app-region: drag;
+  padding: 4px;
   width: 100%;
-  height: 54px;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Cinzel', serif;
+  color: #F8F5EE;
   display: flex;
-  align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 5;
-  flex-shrink: 0;
+  align-items: center;
+  -webkit-app-region: drag;
 }
 
-.title-block {
-  width: 100%;
-  text-align: center;
+/* CLEAN STAND-ALONE WIDGET FRAME */
+.widget-container {
+  width: 310px;
+  background: rgba(20, 15, 25, 0.82) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(227, 200, 150, 0.3);
+  border-radius: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px; /* Increased spacing between title & subtitle */
+  position: relative !important; /* Locks absolute stars inside this container */
+  overflow: hidden;
+  box-shadow: none !important;
 }
 
-.app-title {
-  font-size: 0.82rem;
-  letter-spacing: 2.2px;
-  color: #f4eae1;
-  font-weight: 700;
-  text-align: center;
-}
-
-.app-subtitle {
-  font-size: 0.52rem;
-  letter-spacing: 2.8px;
-  color: #bda27e;
-  opacity: 0.85;
-  text-align: center;
-}
-
-.window-controls {
-  position: absolute;
-  right: 14px;
-  top: 10px;
-  display: flex;
-  gap: 8px;
-  -webkit-app-region: no-drag;
-}
-
-.control-btn {
-  background: transparent;
-  border: none;
-  color: rgba(189, 162, 126, 0.5);
-  font-size: 0.8rem;
-  cursor: pointer;
-}
-
-/* BACKGROUND STARS & CONSTELLATIONS (PULLED IN CLOSER TO MOON) */
-.stars-container {
+/* CONSTELLATION OVERLAY */
+.constellation-bg {
   position: absolute;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* MOON DISPLAY AREA */
+.moon-display {
+  position: relative;
+  width: 100%;
+  height: 105px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 0 8px 0;
+  z-index: 2;
+}
+
+.moon-graphic {
+  width: 95px;
+  height: 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ELONGATED NEEDLE MARGIN STARS - UPRIGHT & UNTILTED */
+svg.star-8pt {
+  position: absolute !important;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  filter: drop-shadow(0 0 3px rgba(227, 200, 150, 0.75)) 
+          drop-shadow(0 0 8px rgba(216, 184, 120, 0.45));
+}
+
+/* TOP LEFT - HERO LARGE NEEDLE STAR */
+.star-top-left {
+  top: 38px;
+  left: 14px;
+  transform: scale(0.85); /* Pure scale, zero tilt */
+}
+
+/* MID RIGHT - SECONDARY LARGE NEEDLE STAR */
+.star-mid-right {
+  top: 100px;
+  right: 14px;
+  transform: scale(0.75); /* Pure scale, zero tilt */
+}
+
+/* BOTTOM LEFT - LOWER & SMALLER (ASYMMETRICAL) */
+.star-bottom-left {
+  bottom: 78px;
+  left: 16px;
+  transform: scale(0.5); /* Pure scale, zero tilt */
+}
+
+/* BOTTOM RIGHT - HIGHER & MEDIUM (ASYMMETRICAL) */
+.star-bottom-right {
+  bottom: 52px;
+  right: 16px;
+  transform: scale(0.65); /* Pure scale, zero tilt */
+}
+
+/* SOFT PULSING GLOW (OPACITY + SHADOW ONLY, NO SCALE DISTORTION) */
+@keyframes starPulse {
+  0%, 100% {
+    opacity: 0.45;
+    filter: drop-shadow(0 0 2px rgba(227, 200, 150, 0.4)) 
+            drop-shadow(0 0 5px rgba(216, 184, 120, 0.25));
+  }
+  50% {
+    opacity: 0.95;
+    filter: drop-shadow(0 0 5px rgba(227, 200, 150, 0.9)) 
+            drop-shadow(0 0 12px rgba(216, 184, 120, 0.65));
+  }
+}
+
+/* BASE NEEDLE STAR SETUP */
+svg.star-8pt {
+  position: absolute !important;
+  pointer-events: none;
+  user-select: none;
+  z-index: 2;
+  animation: starPulse 4.5s infinite ease-in-out;
+}
+
+/* MARGIN POSITIONS + STAGGERED TWINKLE DELAYS */
+.star-top-left {
+  top: 38px;
+  left: 14px;
+  transform: scale(0.85);
+  animation-delay: 0s;
+}
+
+.star-mid-right {
+  top: 100px;
+  right: 14px;
+  transform: scale(0.75);
+  animation-delay: 1.5s;
+}
+
+.star-bottom-left {
+  bottom: 100px;
+  left: 16px;
+  transform: scale(0.5);
+  animation-delay: 3.0s;
+}
+
+.star-bottom-right {
+  bottom: 52px;
+  right: 16px;
+  transform: scale(0.65);
+  animation-delay: 0.8s;
+}
+
+/* CLEAN STARDUST OVERLAY */
+svg.stardust-bg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   z-index: 1;
 }
 
-.constellation-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* 8-Point Stars (Moved inward around moon graphic) */
-.star {
-  position: absolute;
-  background: #d8b878;
-  clip-path: polygon(50% 0%, 54% 42%, 100% 50%, 54% 58%, 50% 100%, 46% 58%, 0% 50%, 46% 42%);
-  opacity: 0.35;
-  animation: pulse 3s infinite ease-in-out;
-}
-
-.star-1 { top: 72px; left: 42px; width: 16px; height: 16px; animation-delay: 0s; }        /* Upper Left */
-.star-2 { top: 78px; right: 44px; width: 14px; height: 14px; animation-delay: 0.8s; }       /* Upper Right */
-.star-3 { bottom: 105px; left: 48px; width: 15px; height: 15px; animation-delay: 1.5s; }   /* Lower Left */
-.star-4 { bottom: 108px; right: 48px; width: 13px; height: 13px; animation-delay: 2.1s; }  /* Lower Right */
-.star-5 { top: 125px; left: 24px; width: 12px; height: 12px; animation-delay: 1.1s; }       /* Mid Left */
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.25; transform: scale(0.85); }
-  50% { opacity: 0.95; transform: scale(1.2); }
-}
-
-/* SHOOTING STAR (TOP-RIGHT TO BOTTOM-LEFT) */
-.shooting-star {
-  position: absolute;
-  top: 10px;
-  right: -20px;
-  width: 75px;
-  height: 1.5px;
-  /* Leading bright tip on the left, fading tail extending right */
-  background: linear-gradient(90deg, #ffffff 0%, rgba(216, 184, 120, 0.85) 35%, transparent 100%);
-  transform-origin: left center;
-  transform: rotate(-35deg);
-  opacity: 0;
-  pointer-events: none;
-  animation: shoot 5s infinite ease-in-out 1.2s;
-}
-
-@keyframes shoot {
-  0% {
-    transform: translate(0, 0) rotate(-35deg);
-    opacity: 0;
+/* SOFT, STATIONARY TWINKLE (OPACITY ONLY) */
+@keyframes dustTwinkle {
+  0%, 100% { 
+    opacity: 0.10; 
   }
-  10% {
-    opacity: 1;
-  }
-  30% {
-    transform: translate(-320px, 240px) rotate(-35deg);
-    opacity: 0;
-  }
-  100% {
-    transform: translate(-320px, 240px) rotate(-35deg);
-    opacity: 0;
+  50% { 
+    opacity: 0.70; 
   }
 }
 
-/* MAIN CONTENT BODY */
-.content-body {
-  flex: 1;
-  width: 100%;
+.star-dot {
+  animation: dustTwinkle 8s infinite ease-in-out;
+}
+
+.dot-1 { animation-delay: 0s; }
+.dot-2 { animation-delay: 1.1s; }
+.dot-3 { animation-delay: 2.2s; }
+.dot-4 { animation-delay: 3.3s; }
+
+/* HEADER AREA */
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  padding: 0 16px 14px 16px;
+  margin-top: 2px;
+  margin-bottom: 6px;
+  z-index: 2;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.main-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #FAF6EE;
+  margin: 0;
+}
+
+.motif {
+  color: #B59E5F;
+  font-size: 0.7rem;
+}
+
+/* SOFT BREATHING AMBIENT MOON GLOW */
+@keyframes moonAuraPulse {
+  0%, 100% {
+    opacity: 0.40;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+.moon-ambient-glow {
+  transform-origin: center;
+  animation: moonAuraPulse 8s infinite ease-in-out;
+}
+
+.subheader {
+  color: #B2A3BE; /* Brighter readable subtitle */
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  margin-top: 3px;
+  text-transform: uppercase;
+}
+
+/* DETAILS SECTION */
+.details-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 12px;
+  z-index: 2;
+}
+
+.zodiac-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.zodiac-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.88rem; /* Scaled down slightly so 'SAGITTARIUS' fits on 1 line */
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  color: #FFFFFF;
+  white-space: nowrap;
+}
+
+.zodiac-symbol {
+  color: #E3C896;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+.phase-subtitle {
+  font-family: 'Cinzel', serif;
+  color: #B5A8BE; /* High-contrast readable phase label */
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* DIVIDER LINE WITH DIAMONDS */
+.divider-wrapper {
+  width: 88%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  margin-bottom: 12px;
   position: relative;
   z-index: 2;
 }
 
-/* MOON GRAPHIC STAGE */
-.moon-stage {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+svg.diamond-4,
+.diamond-pin {
+  width: 10px !important;
+  height: 10px !important;
+  flex-shrink: 0;
+  display: block;
+  filter: drop-shadow(0 0 3px rgba(227, 200, 150, 0.6));
+  margin: 0 10px;
 }
 
-/* MIDDLE ZODIAC & PHASE TEXT BLOCK (EXPANDED SPACING) */
-.text-block-middle {
+.divider-line {
+  flex-grow: 1;
+  height: 1px;
+  background: rgba(227, 200, 150, 0.3);
+}
+
+/* BOTTOM STATS */
+.stats-section {
+  width: 88%;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-bottom: 0px;
+  z-index: 2;
+}
+
+.stat-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 6px; /* Increased vertical gap between sign & phase */
+  gap: 2px;
 }
 
-.zodiac-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+.stat-label {
+  font-family: 'Lexend', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  color: #B2A3BE; /* Readable contrast */
+  text-transform: uppercase;
+  margin-bottom: 0px;
+  line-height: 1.0;
 }
 
-.zodiac-sign {
-  font-size: 0.88rem;
-  letter-spacing: 2px;
-  color: #f4eae1;
-  font-weight: 700;
-}
-
-.zodiac-symbol {
-  width: 17px;
-  height: 17px;
-}
-
-.phase-subtitle {
-  font-size: 0.62rem;
-  letter-spacing: 2.5px;
-  color: #bda27e;
+.stat-value.lexend {
+  font-family: 'Lexend', sans-serif;
   font-weight: 600;
-}
-
-/* METRICS GRID */
-.details-grid {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 92%;
-  border-top: 1px solid rgba(216, 184, 120, 0.22);
-  padding-top: 8px;
-}
-
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.detail-item .label {
-  font-size: 0.52rem;
-  letter-spacing: 1.8px;
-  color: #bda27e;
-  opacity: 0.85;
-  margin-bottom: 2px;
-}
-
-.detail-item .value {
-  font-size: 0.82rem;
-  letter-spacing: 1.5px;
-  color: #f4eae1;
-  font-weight: 700;
+  font-size: 0.75rem;
+  color: #f7ead2;
 }

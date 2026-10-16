@@ -1,33 +1,21 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow } = require('electron');
 
 function createWindow() {
-  const win = new BrowserWindow({
-    width: 320,
-    height: 320,
+  const mainWindow = new BrowserWindow({
+    width: 330,
+    height: 330,
     frame: false,
     transparent: true,
-    backgroundColor: '#00000000',
-    hasShadow: false,
-    thickFrame: false,
     resizable: false,
+    alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
     }
   });
 
-  win.loadFile('index.html');
+  mainWindow.loadFile('index.html');
 }
-
-ipcMain.on('minimize-window', (event) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  if (win) win.minimize();
-});
-
-ipcMain.on('close-window', (event) => {
-  const win = BrowserWindow.fromWebContents(event.sender);
-  if (win) win.close();
-});
 
 app.whenReady().then(createWindow);
 

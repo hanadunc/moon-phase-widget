@@ -1,12 +1,26 @@
 {
-  "name": "lunar-desktop-widget",
+  "name": "moon-phase-widget",
   "version": "1.0.0",
-  "description": "Lunar Ephemeris Desktop Widget",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.lunar.phase.widget",
+    "productName": "Moon Phase Widget",
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ]
+    },
+    "directories": {
+      "output": "dist"
+    }
   },
   "devDependencies": {
-    "electron": "^30.0.0"
+    "electron": "^...",
+    "electron-builder": "^..."
   }
 }
