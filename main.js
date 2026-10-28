@@ -6,8 +6,10 @@ function createWindow() {
     height: 330,
     frame: false,
     transparent: true,
+    hasShadow: false,
+    backgroundColor: '#00000000',
     resizable: false,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
