@@ -148,19 +148,6 @@ function updateLunarData(forcedDate = null) {
   renderMoonGraphic(data.illuminationFraction, data.cycleProgress, data.phaseName);
 }
 
-function updateLunarData() {
-  const now = new Date();
-  const data = getMoonData(now);
-
-  if (document.getElementById('phase-name')) document.getElementById('phase-name').innerText = data.phaseName;
-  if (document.getElementById('illumination-value')) document.getElementById('illumination-value').innerText = data.illumination;
-  if (document.getElementById('lunar-age-value')) document.getElementById('lunar-age-value').innerText = data.lunarAgeDays;
-  if (document.getElementById('zodiac-sign')) document.getElementById('zodiac-sign').innerText = data.signName;
-  if (document.getElementById('zodiac-symbol')) document.getElementById('zodiac-symbol').innerText = data.zodiacSymbol;
-
-  renderMoonGraphic(data.illuminationFraction, data.cycleProgress, data.phaseName);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   // Run on startup
   updateLunarData();
